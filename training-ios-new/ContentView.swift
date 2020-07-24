@@ -8,17 +8,24 @@
 
 import SwiftUI
 import ComposableArchitecture
+import UpcomingCourses
+import MyRegistered
 import TrainingApiClient
 
 struct AppState: Equatable {
-  var upcomingCourses: [Course] = []
-  var isRefreshingCoures = false
-  var refreshError: TrainingApiClient.ApiError? = nil
+  var upcomingCourses: UpcomingCoursesState?
+  var myRegisteredCourses: MyRegisteredCoursesState?
+  var tab: Tab = .myRegistered
+}
+
+enum Tab: Equatable {
+  case upcoming
+  case myRegistered
 }
 
 enum AppAction {
-  case refreshCourseRequest
-  case refreshCourseResponse(Result<[Course], TrainingApiClient.ApiError>)
+  case upcomingCourses(UpcomingCoursesAction)
+  case myRegisteredCourses(MyRegisteredCoursesAction)
 }
 
 struct AppEnv {
@@ -26,47 +33,60 @@ struct AppEnv {
   var mainQueue: AnySchedulerOf<DispatchQueue>
 }
 
-let appReducer = Reducer<AppState, AppAction, AppEnv> { state, action, environment in
-  switch action {
-    
-  case .refreshCourseRequest:
-    state.isRefreshingCoures = true
-    return environment.api.getUpcomingCourses()
-      .receive(on: environment.mainQueue)
-      .catchToEffect()
-      .map(AppAction.refreshCourseResponse)
-  case let .refreshCourseResponse(result):
-    state.isRefreshingCoures = false
-    switch result {
-    case .success(let courses):
-      state.upcomingCourses = courses
-      return .none
-    case .failure(let error):
-      state.refreshError = error
-      return .none
-    }
-  }
-}
+let appReducer : Reducer<AppState, AppAction, AppEnv> = Reducer.combine(
+  upcomingCoursesReducer
+    .optional
+    .pullback(
+      state: \.upcomingCourses,
+      action: /AppAction.upcomingCourses,
+      environment: { UpcomingCoursesEnv(api: $0.api, mainQueue: $0.mainQueue) }
+  ),
+  myRegisteredCoursesReducer
+    .optional
+    .pullback(
+      state: \.myRegisteredCourses,
+      action: /AppAction.myRegisteredCourses,
+      environment: { MyRegisteredCoursesEnv(api: $0.api, mainQueue: $0.mainQueue) }
+  )
+)
+
+
 
 struct ContentView: View {
   let store: Store<AppState, AppAction>
   
   var body: some View {
-    NavigationView {
-      WithViewStore(self.store) { viewStore in
-        List {
-          ForEach(viewStore.state.upcomingCourses) { course in
-            Text(course.topicName)
-          }
-          
-        }.onAppear {
-          viewStore.send(AppAction.refreshCourseRequest)
-        }
-        .navigationBarTitle("Upcoming Courses")
-      }
+    WithViewStore(self.store) { viewStore in
+      self.courseView(tab: viewStore.tab)
       
+//      Text("test\(viewStore.tab == Tab.upcoming ? "a" : "b")")
     }
+    
+    
+  }
   
+  func courseView(tab: Tab) -> AnyView {
+    switch tab {
+    case .upcoming:
+    return AnyView(IfLetStore(
+      self.store.scope(
+        state: { $0.upcomingCourses }, action: AppAction.upcomingCourses),
+      then: { store in
+        UpcomingCoursesView(store: store)
+      },
+      else: Text("UpcomingCoursesView ")
+    ))
+    case .myRegistered:
+    return AnyView(IfLetStore(
+      self.store.scope(
+        state: { $0.myRegisteredCourses }, action: AppAction.myRegisteredCourses),
+      then: { store in
+        MyRegisteredCoursesView(store: store)
+      },
+      else: Text("MyRegisteredCoursesView")
+    ))
+    }
+      
   }
 }
 
@@ -77,7 +97,7 @@ struct ContentView_Previews: PreviewProvider {
         initialState: AppState(),
         reducer: appReducer,
         environment: AppEnv(
-          api: .mock,
+          api: .mock(),
           mainQueue: DispatchQueue.main.eraseToAnyScheduler()
         )
     ))

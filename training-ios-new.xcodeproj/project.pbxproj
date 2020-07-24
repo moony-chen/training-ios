@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,13 @@
 		1A476CCD24C817A80054ACED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A476CCC24C817A80054ACED /* Preview Assets.xcassets */; };
 		1A476CD024C817A80054ACED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A476CCE24C817A80054ACED /* LaunchScreen.storyboard */; };
 		1A476CDB24C817A80054ACED /* training_ios_newTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A476CDA24C817A80054ACED /* training_ios_newTests.swift */; };
+		1A722F1A24CAABE200CDA73D /* TrainingApiClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A722F1124CAABE200CDA73D /* TrainingApiClient.framework */; };
+		1A722F2124CAABE200CDA73D /* TrainingApiClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A722F2024CAABE200CDA73D /* TrainingApiClientTests.swift */; };
+		1A722F2324CAABE200CDA73D /* TrainingApiClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A722F1324CAABE200CDA73D /* TrainingApiClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1A722F2624CAABE200CDA73D /* TrainingApiClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A722F1124CAABE200CDA73D /* TrainingApiClient.framework */; };
+		1A722F2724CAABE200CDA73D /* TrainingApiClient.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1A722F1124CAABE200CDA73D /* TrainingApiClient.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1A722F3024CAAC0300CDA73D /* TrainingApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A722F2F24CAAC0300CDA73D /* TrainingApiClient.swift */; };
+		1A722F3224CAAC1C00CDA73D /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 1A722F3124CAAC1C00CDA73D /* ComposableArchitecture */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,10 +31,45 @@
 			remoteGlobalIDString = 1A476CBF24C817A40054ACED;
 			remoteInfo = "training-ios-new";
 		};
+		1A722F1B24CAABE200CDA73D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1A476CB824C817A40054ACED /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1A722F1024CAABE200CDA73D;
+			remoteInfo = TrainingApiClient;
+		};
+		1A722F1D24CAABE200CDA73D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1A476CB824C817A40054ACED /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1A476CBF24C817A40054ACED;
+			remoteInfo = "training-ios-new";
+		};
+		1A722F2424CAABE200CDA73D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1A476CB824C817A40054ACED /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1A722F1024CAABE200CDA73D;
+			remoteInfo = TrainingApiClient;
+		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		1A722F2B24CAABE200CDA73D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1A722F2724CAABE200CDA73D /* TrainingApiClient.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		1A476CC024C817A40054ACED /* training-ios-new.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "training-ios-new.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A476CC024C817A40054ACED /* GDC Training.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GDC Training.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A476CC324C817A40054ACED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A476CC524C817A40054ACED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		1A476CC724C817A40054ACED /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -38,6 +80,14 @@
 		1A476CD624C817A80054ACED /* training-ios-newTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "training-ios-newTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A476CDA24C817A80054ACED /* training_ios_newTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = training_ios_newTests.swift; sourceTree = "<group>"; };
 		1A476CDC24C817A80054ACED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A722F0B24CA7FFC00CDA73D /* training.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = training.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		1A722F1124CAABE200CDA73D /* TrainingApiClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TrainingApiClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A722F1324CAABE200CDA73D /* TrainingApiClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrainingApiClient.h; sourceTree = "<group>"; };
+		1A722F1424CAABE200CDA73D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A722F1924CAABE200CDA73D /* TrainingApiClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrainingApiClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A722F2024CAABE200CDA73D /* TrainingApiClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingApiClientTests.swift; sourceTree = "<group>"; };
+		1A722F2224CAABE200CDA73D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A722F2F24CAAC0300CDA73D /* TrainingApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingApiClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A722F2624CAABE200CDA73D /* TrainingApiClient.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,23 +106,45 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1A722F0E24CAABE200CDA73D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A722F3224CAAC1C00CDA73D /* ComposableArchitecture in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A722F1624CAABE200CDA73D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A722F1A24CAABE200CDA73D /* TrainingApiClient.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		1A476CB724C817A40054ACED = {
 			isa = PBXGroup;
 			children = (
+				1A722F0B24CA7FFC00CDA73D /* training.playground */,
 				1A476CC224C817A40054ACED /* training-ios-new */,
 				1A476CD924C817A80054ACED /* training-ios-newTests */,
+				1A722F1224CAABE200CDA73D /* TrainingApiClient */,
+				1A722F1F24CAABE200CDA73D /* TrainingApiClientTests */,
 				1A476CC124C817A40054ACED /* Products */,
+				1A476CE824C81CE90054ACED /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		1A476CC124C817A40054ACED /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1A476CC024C817A40054ACED /* training-ios-new.app */,
+				1A476CC024C817A40054ACED /* GDC Training.app */,
 				1A476CD624C817A80054ACED /* training-ios-newTests.xctest */,
+				1A722F1124CAABE200CDA73D /* TrainingApiClient.framework */,
+				1A722F1924CAABE200CDA73D /* TrainingApiClientTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -107,7 +180,44 @@
 			path = "training-ios-newTests";
 			sourceTree = "<group>";
 		};
+		1A476CE824C81CE90054ACED /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1A722F1224CAABE200CDA73D /* TrainingApiClient */ = {
+			isa = PBXGroup;
+			children = (
+				1A722F1324CAABE200CDA73D /* TrainingApiClient.h */,
+				1A722F1424CAABE200CDA73D /* Info.plist */,
+				1A722F2F24CAAC0300CDA73D /* TrainingApiClient.swift */,
+			);
+			path = TrainingApiClient;
+			sourceTree = "<group>";
+		};
+		1A722F1F24CAABE200CDA73D /* TrainingApiClientTests */ = {
+			isa = PBXGroup;
+			children = (
+				1A722F2024CAABE200CDA73D /* TrainingApiClientTests.swift */,
+				1A722F2224CAABE200CDA73D /* Info.plist */,
+			);
+			path = TrainingApiClientTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		1A722F0C24CAABE200CDA73D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A722F2324CAABE200CDA73D /* TrainingApiClient.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		1A476CBF24C817A40054ACED /* training-ios-new */ = {
@@ -117,14 +227,18 @@
 				1A476CBC24C817A40054ACED /* Sources */,
 				1A476CBD24C817A40054ACED /* Frameworks */,
 				1A476CBE24C817A40054ACED /* Resources */,
+				1A722F2B24CAABE200CDA73D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				1A722F2524CAABE200CDA73D /* PBXTargetDependency */,
 			);
 			name = "training-ios-new";
+			packageProductDependencies = (
+			);
 			productName = "training-ios-new";
-			productReference = 1A476CC024C817A40054ACED /* training-ios-new.app */;
+			productReference = 1A476CC024C817A40054ACED /* GDC Training.app */;
 			productType = "com.apple.product-type.application";
 		};
 		1A476CD524C817A80054ACED /* training-ios-newTests */ = {
@@ -145,6 +259,46 @@
 			productReference = 1A476CD624C817A80054ACED /* training-ios-newTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		1A722F1024CAABE200CDA73D /* TrainingApiClient */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A722F2824CAABE200CDA73D /* Build configuration list for PBXNativeTarget "TrainingApiClient" */;
+			buildPhases = (
+				1A722F0C24CAABE200CDA73D /* Headers */,
+				1A722F0D24CAABE200CDA73D /* Sources */,
+				1A722F0E24CAABE200CDA73D /* Frameworks */,
+				1A722F0F24CAABE200CDA73D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TrainingApiClient;
+			packageProductDependencies = (
+				1A722F3124CAAC1C00CDA73D /* ComposableArchitecture */,
+			);
+			productName = TrainingApiClient;
+			productReference = 1A722F1124CAABE200CDA73D /* TrainingApiClient.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		1A722F1824CAABE200CDA73D /* TrainingApiClientTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A722F2C24CAABE200CDA73D /* Build configuration list for PBXNativeTarget "TrainingApiClientTests" */;
+			buildPhases = (
+				1A722F1524CAABE200CDA73D /* Sources */,
+				1A722F1624CAABE200CDA73D /* Frameworks */,
+				1A722F1724CAABE200CDA73D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1A722F1C24CAABE200CDA73D /* PBXTargetDependency */,
+				1A722F1E24CAABE200CDA73D /* PBXTargetDependency */,
+			);
+			name = TrainingApiClientTests;
+			productName = TrainingApiClientTests;
+			productReference = 1A722F1924CAABE200CDA73D /* TrainingApiClientTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -162,6 +316,14 @@
 						CreatedOnToolsVersion = 11.5;
 						TestTargetID = 1A476CBF24C817A40054ACED;
 					};
+					1A722F1024CAABE200CDA73D = {
+						CreatedOnToolsVersion = 11.5;
+						LastSwiftMigration = 1150;
+					};
+					1A722F1824CAABE200CDA73D = {
+						CreatedOnToolsVersion = 11.5;
+						TestTargetID = 1A476CBF24C817A40054ACED;
+					};
 				};
 			};
 			buildConfigurationList = 1A476CBB24C817A40054ACED /* Build configuration list for PBXProject "training-ios-new" */;
@@ -173,12 +335,17 @@
 				Base,
 			);
 			mainGroup = 1A476CB724C817A40054ACED;
+			packageReferences = (
+				1A476CE524C81A7C0054ACED /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			productRefGroup = 1A476CC124C817A40054ACED /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				1A476CBF24C817A40054ACED /* training-ios-new */,
 				1A476CD524C817A80054ACED /* training-ios-newTests */,
+				1A722F1024CAABE200CDA73D /* TrainingApiClient */,
+				1A722F1824CAABE200CDA73D /* TrainingApiClientTests */,
 			);
 		};
 /* End PBXProject section */
@@ -195,6 +362,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		1A476CD424C817A80054ACED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A722F0F24CAABE200CDA73D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A722F1724CAABE200CDA73D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -222,6 +403,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1A722F0D24CAABE200CDA73D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A722F3024CAAC0300CDA73D /* TrainingApiClient.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A722F1524CAABE200CDA73D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A722F2124CAABE200CDA73D /* TrainingApiClientTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -229,6 +426,21 @@
 			isa = PBXTargetDependency;
 			target = 1A476CBF24C817A40054ACED /* training-ios-new */;
 			targetProxy = 1A476CD724C817A80054ACED /* PBXContainerItemProxy */;
+		};
+		1A722F1C24CAABE200CDA73D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1A722F1024CAABE200CDA73D /* TrainingApiClient */;
+			targetProxy = 1A722F1B24CAABE200CDA73D /* PBXContainerItemProxy */;
+		};
+		1A722F1E24CAABE200CDA73D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1A476CBF24C817A40054ACED /* training-ios-new */;
+			targetProxy = 1A722F1D24CAABE200CDA73D /* PBXContainerItemProxy */;
+		};
+		1A722F2524CAABE200CDA73D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1A722F1024CAABE200CDA73D /* TrainingApiClient */;
+			targetProxy = 1A722F2424CAABE200CDA73D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -361,6 +573,7 @@
 		1A476CE024C817A80054ACED /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"training-ios-new/Preview Content\"";
@@ -371,16 +584,17 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.perficient.training-ios-new";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.perficient.cngdc.training-dev";
+				PRODUCT_NAME = "GDC Training";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		1A476CE124C817A80054ACED /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"training-ios-new/Preview Content\"";
@@ -391,10 +605,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.perficient.training-ios-new";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.perficient.cngdc.training-dev";
+				PRODUCT_NAME = "GDC Training";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -442,6 +656,103 @@
 			};
 			name = Release;
 		};
+		1A722F2924CAABE200CDA73D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = R39KQQ8QNU;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = TrainingApiClient/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.perficient.TrainingApiClient;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		1A722F2A24CAABE200CDA73D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = R39KQQ8QNU;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = TrainingApiClient/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.perficient.TrainingApiClient;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		1A722F2D24CAABE200CDA73D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R39KQQ8QNU;
+				INFOPLIST_FILE = TrainingApiClientTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.perficient.TrainingApiClientTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GDC Training.app/GDC Training";
+			};
+			name = Debug;
+		};
+		1A722F2E24CAABE200CDA73D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R39KQQ8QNU;
+				INFOPLIST_FILE = TrainingApiClientTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.perficient.TrainingApiClientTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GDC Training.app/GDC Training";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -472,7 +783,44 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		1A722F2824CAABE200CDA73D /* Build configuration list for PBXNativeTarget "TrainingApiClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A722F2924CAABE200CDA73D /* Debug */,
+				1A722F2A24CAABE200CDA73D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1A722F2C24CAABE200CDA73D /* Build configuration list for PBXNativeTarget "TrainingApiClientTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A722F2D24CAABE200CDA73D /* Debug */,
+				1A722F2E24CAABE200CDA73D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1A476CE524C81A7C0054ACED /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:pointfreeco/swift-composable-architecture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1A722F3124CAAC1C00CDA73D /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1A476CE524C81A7C0054ACED /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1A476CB824C817A40054ACED /* Project object */;
 }

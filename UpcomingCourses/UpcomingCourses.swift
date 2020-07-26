@@ -50,21 +50,17 @@ public struct UpcomingCoursesView: View {
   let store: Store<UpcomingCoursesState, UpcomingCoursesAction>
   
   public var body: some View {
-    NavigationView {
-      WithViewStore(self.store) { viewStore in
-        List {
-          ForEach(viewStore.state.upcomingCourses) { course in
-            Text(course.topicName)
-          }
-          
-        }.onAppear {
-          viewStore.send(UpcomingCoursesAction.refreshCourseRequest)
+    WithViewStore(self.store) { viewStore in
+      List {
+        ForEach(viewStore.state.upcomingCourses) { course in
+          Text(course.topicName)
         }
-        .navigationBarTitle("Upcoming Courses")
+        
+      }.onAppear {
+        viewStore.send(UpcomingCoursesAction.refreshCourseRequest)
       }
-      
+      .navigationBarTitle("Upcoming Courses")
     }
-  
   }
   
   public init(store: Store<UpcomingCoursesState, UpcomingCoursesAction>) {

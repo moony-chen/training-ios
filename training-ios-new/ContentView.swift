@@ -11,6 +11,7 @@ import ComposableArchitecture
 import UpcomingCourses
 import MyRegistered
 import TrainingApiClient
+import Common
 
 struct AppState: Equatable {
   var upcomingCourses: UpcomingCoursesState?
@@ -18,7 +19,7 @@ struct AppState: Equatable {
   var tab: Tab = .myRegistered
 }
 
-enum Tab: Equatable {
+enum Tab: Int, Equatable {
   case upcoming
   case myRegistered
 }
@@ -26,6 +27,7 @@ enum Tab: Equatable {
 enum AppAction {
   case upcomingCourses(UpcomingCoursesAction)
   case myRegisteredCourses(MyRegisteredCoursesAction)
+  case tabChanged(Tab)
 }
 
 struct AppEnv {
@@ -47,9 +49,19 @@ let appReducer : Reducer<AppState, AppAction, AppEnv> = Reducer.combine(
       state: \.myRegisteredCourses,
       action: /AppAction.myRegisteredCourses,
       environment: { MyRegisteredCoursesEnv(api: $0.api, mainQueue: $0.mainQueue) }
-  )
+  ).combined(with: Reducer<AppState, AppAction, AppEnv> {
+    state, action, env in
+    switch action {
+    case .upcomingCourses(_):
+      return .none
+    case .myRegisteredCourses(_):
+      return .none
+    case let .tabChanged(tab):
+      state.tab = tab
+      return .none
+    }
+  })
 )
-
 
 
 struct ContentView: View {
@@ -57,9 +69,19 @@ struct ContentView: View {
   
   var body: some View {
     WithViewStore(self.store) { viewStore in
-      self.courseView(tab: viewStore.tab)
-      
-//      Text("test\(viewStore.tab == Tab.upcoming ? "a" : "b")")
+      NavigationView {
+        VStack {
+          Picker(selection: viewStore.binding(
+            get: { $0.tab },
+            send: AppAction.tabChanged
+          ), label: Text("")) {
+            Text("Upcoming").tag(Tab.upcoming)
+            Text("Registered").tag(Tab.myRegistered)
+          }.pickerStyle(SegmentedPickerStyle())
+          
+          self.courseView(tab: viewStore.tab)
+        }
+      }
     }
     
     
@@ -74,7 +96,7 @@ struct ContentView: View {
       then: { store in
         UpcomingCoursesView(store: store)
       },
-      else: Text("UpcomingCoursesView ")
+      else: ActivityIndicator()
     ))
     case .myRegistered:
     return AnyView(IfLetStore(
@@ -83,7 +105,7 @@ struct ContentView: View {
       then: { store in
         MyRegisteredCoursesView(store: store)
       },
-      else: Text("MyRegisteredCoursesView")
+      else: ActivityIndicator()
     ))
     }
       

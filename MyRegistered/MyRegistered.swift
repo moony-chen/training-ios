@@ -51,21 +51,17 @@ public struct MyRegisteredCoursesView: View {
   public let store: Store<MyRegisteredCoursesState, MyRegisteredCoursesAction>
   
   public var body: some View {
-    NavigationView {
-      WithViewStore(self.store) { viewStore in
-        List {
-          ForEach(viewStore.myRegisteredCourses) { course in
-            Text(course.topicName)
-          }
-          
-        }.onAppear {
-          viewStore.send(MyRegisteredCoursesAction.refreshCourseRequest)
+    WithViewStore(self.store) { viewStore in
+      List {
+        ForEach(viewStore.myRegisteredCourses) { course in
+          Text(course.topicName)
         }
-        .navigationBarTitle("Registered Courses")
+        
+      }.onAppear {
+        viewStore.send(MyRegisteredCoursesAction.refreshCourseRequest)
       }
-      
+      .navigationBarTitle("Registered Courses")
     }
-  
   }
   
   public init(store: Store<MyRegisteredCoursesState, MyRegisteredCoursesAction>) {

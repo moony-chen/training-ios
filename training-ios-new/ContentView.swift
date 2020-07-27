@@ -14,8 +14,8 @@ import TrainingApiClient
 import Common
 
 struct AppState: Equatable {
-  var upcomingCourses: UpcomingCoursesState?
-  var myRegisteredCourses: MyRegisteredCoursesState?
+  var upcomingCourses: UpcomingCoursesState = UpcomingCoursesState()
+  var myRegisteredCourses: MyRegisteredCoursesState = MyRegisteredCoursesState(emid: "135")
   var tab: Tab = .myRegistered
 }
 
@@ -36,15 +36,13 @@ struct AppEnv {
 }
 
 let appReducer : Reducer<AppState, AppAction, AppEnv> = Reducer.combine(
-  upcomingCoursesReducer
-    .optional
+  upcomingCoursesReducer.debug()
     .pullback(
       state: \.upcomingCourses,
       action: /AppAction.upcomingCourses,
       environment: { UpcomingCoursesEnv(api: $0.api, mainQueue: $0.mainQueue) }
   ),
-  myRegisteredCoursesReducer
-    .optional
+  myRegisteredCoursesReducer.debug()
     .pullback(
       state: \.myRegisteredCourses,
       action: /AppAction.myRegisteredCourses,
@@ -80,6 +78,7 @@ struct ContentView: View {
           }.pickerStyle(SegmentedPickerStyle())
           
           self.courseView(tab: viewStore.tab)
+          
         }
       }
     }
@@ -87,28 +86,24 @@ struct ContentView: View {
     
   }
   
+  
   func courseView(tab: Tab) -> AnyView {
     switch tab {
     case .upcoming:
-    return AnyView(IfLetStore(
-      self.store.scope(
-        state: { $0.upcomingCourses }, action: AppAction.upcomingCourses),
-      then: { store in
-        UpcomingCoursesView(store: store)
-      },
-      else: ActivityIndicator()
-    ))
+      return AnyView(UpcomingCoursesView(
+        store: self.store.scope(
+          state: { $0.upcomingCourses },
+          action: AppAction.upcomingCourses)
+      ))
     case .myRegistered:
-    return AnyView(IfLetStore(
-      self.store.scope(
-        state: { $0.myRegisteredCourses }, action: AppAction.myRegisteredCourses),
-      then: { store in
-        MyRegisteredCoursesView(store: store)
-      },
-      else: ActivityIndicator()
-    ))
-    }
+      return AnyView(MyRegisteredCoursesView(
+        store: self.store.scope(
+          state: { $0.myRegisteredCourses },
+          action: AppAction.myRegisteredCourses)
+      ))
       
+      
+    }
   }
 }
 

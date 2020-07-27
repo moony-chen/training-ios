@@ -14,13 +14,13 @@ public struct Course: Decodable, Identifiable, Equatable {
   public var id: Int
   public var topicName: String = ""
   public var programName: String = ""
-  public var externalTrainer: String = ""
+  public var externalTrainer: String? = ""
   public var deliveryDate: Date = Date()
   public var lastUpdate: Date = Date()
   public var startTime: String = ""
   public var endTime: String = ""
   public var description: String = ""
-  public var meetingRoom: String = ""
+  public var meetingRoom: String? = ""
   
   public var trainers: [User] = []
   public var attendees: [User] = []
@@ -30,13 +30,13 @@ public struct Course: Decodable, Identifiable, Equatable {
     id: Int = 0,
     topicName: String = "",
     programName: String = "",
-    externalTrainer: String = "",
+    externalTrainer: String? = "",
     deliveryDate: Date = Date(),
     lastUpdate: Date = Date(),
     startTime: String = "",
     endTime: String = "",
     description: String = "",
-    meetingRoom: String = "",
+    meetingRoom: String? = "",
     trainers: [User] = [],
     attendees: [User] = []
   ) {
@@ -144,7 +144,7 @@ private func recentCourses(from: Date = Date(), to: Date = Date() + 60 * 3600, e
 }
 
 private func myRegisteredCourses(emid: String = "0") -> Effect<[Course], TrainingApiClient.ApiError> {
-  let url = URL(string: "http://gdctools:8090/training/resteasy/training/course/myRegistered/\(emid)")!
+  let url = URL(string: "http://gdctools:8090/training/resteasy/training/course/myAttended/\(emid)")!
 
   return URLSession.shared.dataTaskPublisher(for: url)
     .map { data, _ in data }

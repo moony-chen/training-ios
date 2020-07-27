@@ -34,6 +34,8 @@
 		1A722F7224CAC4C800CDA73D /* MyRegistered.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1A722F5C24CAC4C800CDA73D /* MyRegistered.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1A722F7A24CAC50B00CDA73D /* MyRegistered.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A722F7924CAC50B00CDA73D /* MyRegistered.swift */; };
 		1A722F7B24CAC60100CDA73D /* TrainingApiClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A722F1124CAABE200CDA73D /* TrainingApiClient.framework */; };
+		1A722F8224CEA02700CDA73D /* Common.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A9E9FE24CD2B220096D97C /* Common.framework */; };
+		1A722F8724CEA03700CDA73D /* Common.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A9E9FE24CD2B220096D97C /* Common.framework */; };
 		75A9EA0724CD2B220096D97C /* Common.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A9E9FE24CD2B220096D97C /* Common.framework */; };
 		75A9EA0E24CD2B220096D97C /* CommonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A9EA0D24CD2B220096D97C /* CommonTests.swift */; };
 		75A9EA1024CD2B220096D97C /* Common.h in Headers */ = {isa = PBXBuildFile; fileRef = 75A9EA0024CD2B220096D97C /* Common.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -120,6 +122,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 1A722F1024CAABE200CDA73D;
 			remoteInfo = TrainingApiClient;
+		};
+		1A722F8424CEA02700CDA73D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1A476CB824C817A40054ACED /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 75A9E9FD24CD2B220096D97C;
+			remoteInfo = Common;
+		};
+		1A722F8924CEA03700CDA73D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1A476CB824C817A40054ACED /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 75A9E9FD24CD2B220096D97C;
+			remoteInfo = Common;
 		};
 		75A9EA0824CD2B220096D97C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -251,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				75A9EA1F24CD2C0D0096D97C /* TrainingApiClient.framework in Frameworks */,
+				1A722F8224CEA02700CDA73D /* Common.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A722F7B24CAC60100CDA73D /* TrainingApiClient.framework in Frameworks */,
+				1A722F8724CEA03700CDA73D /* Common.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -579,6 +597,7 @@
 			);
 			dependencies = (
 				75A9EA2224CD2C0D0096D97C /* PBXTargetDependency */,
+				1A722F8524CEA02700CDA73D /* PBXTargetDependency */,
 			);
 			name = UpcomingCourses;
 			packageProductDependencies = (
@@ -619,6 +638,7 @@
 			);
 			dependencies = (
 				1A722F7E24CAC60100CDA73D /* PBXTargetDependency */,
+				1A722F8A24CEA03700CDA73D /* PBXTargetDependency */,
 			);
 			name = MyRegistered;
 			productName = MyRegistered;
@@ -978,6 +998,16 @@
 			isa = PBXTargetDependency;
 			target = 1A722F1024CAABE200CDA73D /* TrainingApiClient */;
 			targetProxy = 1A722F7D24CAC60100CDA73D /* PBXContainerItemProxy */;
+		};
+		1A722F8524CEA02700CDA73D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 75A9E9FD24CD2B220096D97C /* Common */;
+			targetProxy = 1A722F8424CEA02700CDA73D /* PBXContainerItemProxy */;
+		};
+		1A722F8A24CEA03700CDA73D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 75A9E9FD24CD2B220096D97C /* Common */;
+			targetProxy = 1A722F8924CEA03700CDA73D /* PBXContainerItemProxy */;
 		};
 		75A9EA0924CD2B220096D97C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

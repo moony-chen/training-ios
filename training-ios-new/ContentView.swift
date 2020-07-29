@@ -12,11 +12,18 @@ import UpcomingCourses
 import MyRegistered
 import TrainingApiClient
 import Common
+import Login
+import CasAuth
 
 struct AppState: Equatable {
   var upcomingCourses: UpcomingCoursesState = UpcomingCoursesState()
-  var myRegisteredCourses: MyRegisteredCoursesState = MyRegisteredCoursesState(emid: "135")
-  var tab: Tab = .myRegistered
+  var myRegisteredCourses: MyRegisteredCoursesState = MyRegisteredCoursesState()
+  var tab: Tab = .upcoming
+  var loginState: LoginState = LoginState()
+  
+  var anonymous: User? {
+    loginState.loginedUser == nil ? User(id: 0) : nil
+  }
 }
 
 enum Tab: Int, Equatable {
@@ -28,11 +35,14 @@ enum AppAction {
   case upcomingCourses(UpcomingCoursesAction)
   case myRegisteredCourses(MyRegisteredCoursesAction)
   case tabChanged(Tab)
+  case dismissLogin
+  case login(LoginAction)
 }
 
 struct AppEnv {
   var api: TrainingApiClient
   var mainQueue: AnySchedulerOf<DispatchQueue>
+  var casAuth: PFTCasAuth
 }
 
 let appReducer : Reducer<AppState, AppAction, AppEnv> = Reducer.combine(
@@ -47,19 +57,36 @@ let appReducer : Reducer<AppState, AppAction, AppEnv> = Reducer.combine(
       state: \.myRegisteredCourses,
       action: /AppAction.myRegisteredCourses,
       environment: { MyRegisteredCoursesEnv(api: $0.api, mainQueue: $0.mainQueue) }
-  ).combined(with: Reducer<AppState, AppAction, AppEnv> {
+  ),
+  loginReducer.debug()
+    .pullback(
+      state: \.loginState,
+      action: /AppAction.login,
+      environment: { env in LoginEnv(api: env.api,
+                              mainQueue: env.mainQueue,
+                              casAuth: { u, p in env.casAuth.getServiceTicket(u, p, .training).map { (g, s) in s}.eraseToEffect()  }) }
+      )
+)
+    .combined(with: Reducer<AppState, AppAction, AppEnv> {
     state, action, env in
     switch action {
     case .upcomingCourses(_):
       return .none
     case .myRegisteredCourses(_):
       return .none
+    case .login(.loginSuccess(_, let user)):
+      state.myRegisteredCourses.emid = "\(user.id)"
+      return .none
+    case .login(_):
+      return .none
     case let .tabChanged(tab):
       state.tab = tab
       return .none
+    case .dismissLogin:
+      return .none
     }
   })
-)
+
 
 
 struct ContentView: View {
@@ -81,6 +108,15 @@ struct ContentView: View {
           
         }
       }
+      .sheet(item: viewStore.binding(
+        get: { $0.anonymous },
+      send: AppAction.dismissLogin
+        ), content: { _ in
+          LoginView(store:
+            self.store.scope(
+            state: { $0.loginState },
+            action: AppAction.login)) }
+      )
     }
     
     
@@ -115,7 +151,8 @@ struct ContentView_Previews: PreviewProvider {
         reducer: appReducer,
         environment: AppEnv(
           api: .mock(),
-          mainQueue: DispatchQueue.main.eraseToAnyScheduler()
+          mainQueue: DispatchQueue.main.eraseToAnyScheduler(),
+          casAuth: .mock()
         )
     ))
   }

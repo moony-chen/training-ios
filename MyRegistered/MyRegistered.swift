@@ -8,7 +8,7 @@ public struct MyRegisteredCoursesState: Equatable {
   public var myRegisteredCourses: [Course]?
   public var isRefreshingCoures = false
   public var refreshError: TrainingApiClient.ApiError? = nil
-  public let emid: String?
+  public var emid: String?
   
   public init(
   myRegisteredCourses: [Course]? = nil,

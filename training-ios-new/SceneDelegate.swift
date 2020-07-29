@@ -9,6 +9,7 @@
 import UIKit
 import SwiftUI
 import ComposableArchitecture
+import CasAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   
@@ -27,7 +28,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         reducer: appReducer,
         environment: AppEnv(
           api: .live,
-          mainQueue: DispatchQueue.main.eraseToAnyScheduler()
+          mainQueue: DispatchQueue.main.eraseToAnyScheduler(),
+          casAuth: .live
         )
     ))
     

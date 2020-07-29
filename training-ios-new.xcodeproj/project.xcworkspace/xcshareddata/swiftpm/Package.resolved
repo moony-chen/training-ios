@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "CasAuth",
+        "repositoryURL": "https://gdcgit.perficient.com/mark.shen/pftcasauthentication.git",
+        "state": {
+          "branch": null,
+          "revision": "62e2daf483a90a5aa564de26b64f6aeebecf873f",
+          "version": "2.0.3"
+        }
+      },
+      {
         "package": "swift-case-paths",
         "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
         "state": {

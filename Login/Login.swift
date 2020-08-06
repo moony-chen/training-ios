@@ -10,6 +10,8 @@ public struct LoginState: Equatable {
   var username: String = ""
   var password: String = ""
   public var loginedUser: User? = nil
+  public var loginErrorAlert: AlertState<LoginAction>? = nil
+  public var loginInFlight: Bool = false
   
   public init(loginedUser: User? = nil) {
     self.loginedUser = loginedUser
@@ -22,6 +24,7 @@ public enum LoginAction: Equatable {
   case loginTapped
   case loginSuccess(authId: String, user: User)
   case loginFailure(AppError)
+  case loginErrorAlertDismissTapped
 }
 
 public struct LoginEnv {
@@ -50,6 +53,7 @@ public let loginReducer =
           state.password = password
           return .none
         case .loginTapped:
+          state.loginInFlight = true
           return environment.casAuth(state.username, state.password)
             .mapError { _ in AppError.casError }
             .map(LoginRequest.init)
@@ -62,9 +66,18 @@ public let loginReducer =
           }.eraseToEffect()
         case .loginSuccess(authId: let authId, user: let user):
           state.loginedUser = user
+          state.loginInFlight = false
           return .none
-        case .loginFailure(_):
-          // TODO: Login error
+        case .loginFailure(let error):
+          state.loginInFlight = false
+          state.loginErrorAlert = .init(
+            title: "Login Failed!",
+            message: "Please try again later",
+            dismissButton: .default("OK", send: .loginErrorAlertDismissTapped)
+          )
+          return .none
+        case .loginErrorAlertDismissTapped:
+          state.loginErrorAlert = nil
           return .none
     }
       
@@ -80,18 +93,23 @@ public struct LoginView: View {
   public var body: some View {
     WithViewStore(self.store) { vs in
       VStack {
-        TextField("Username", text: vs.binding(
+        TextField("username", text: vs.binding(
           get: { $0.username },
           send: LoginAction.usernameChanged
         ))
-        TextField("Password", text: vs.binding(
+        SecureField("******", text: vs.binding(
           get: { $0.password },
           send: LoginAction.passwordChanged
           ))
         Button(action: {
           vs.send(.loginTapped)
         }) { Text("Login") }
+          .disabled(vs.loginInFlight)
       }
+      .alert(
+        self.store.scope(state: { $0.loginErrorAlert }),
+        dismiss: .loginErrorAlertDismissTapped
+      )
     }
   }
 }

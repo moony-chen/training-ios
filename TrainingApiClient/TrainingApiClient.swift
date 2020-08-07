@@ -113,6 +113,7 @@ public struct TrainingApiClient {
   public var getUpcomingCourses: () -> Effect<[Course], ApiError>
   public var getMyRegisteredCourses: (_ emid: String) -> Effect<[Course], ApiError>
   public var getMyAttendedCourses: (_ emid: String) -> Effect<[Course], ApiError>
+  public var getMyDeliveredCourses: (_ emid: String) -> Effect<[Course], ApiError>
   
   public var login: (_ request: LoginRequest) -> Effect<LoginResponse, ApiError>
 
@@ -122,11 +123,13 @@ public struct TrainingApiClient {
     getUpcomingCourses: @escaping () -> Effect<[Course], ApiError>,
     getMyRegisteredCourses: @escaping (_ emid: String) -> Effect<[Course], ApiError>,
     getMyAttendedCourses: @escaping (_ emid: String) -> Effect<[Course], ApiError>,
+    getMyDeliveredCourses: @escaping (_ emid: String) -> Effect<[Course], ApiError>,
     login: @escaping (_ request: LoginRequest) -> Effect<LoginResponse, ApiError>
   ) {
     self.getUpcomingCourses = getUpcomingCourses
     self.getMyRegisteredCourses = getMyRegisteredCourses
     self.getMyAttendedCourses = getMyAttendedCourses
+    self.getMyDeliveredCourses = getMyDeliveredCourses
     self.login = login
   }
 }
@@ -149,9 +152,16 @@ extension TrainingApiClient {
     },
     getMyAttendedCourses: @escaping (_ emid: String) -> Effect<[Course], ApiError> = { _ in
       Effect(value: [
-        Course(id: 1, topicName: "raywenderich"),
-        Course(id: 4, topicName: "pointfree"),
-        Course(id: 5, topicName: "objc")
+        Course(id: 6, topicName: "raywenderich"),
+        Course(id: 7, topicName: "pointfree"),
+        Course(id: 8, topicName: "objc")
+        ]).eraseToEffect()
+    },
+    getMyDeliveredCourses: @escaping (_ emid: String) -> Effect<[Course], ApiError> = { _ in
+      Effect(value: [
+        Course(id: 9, topicName: "CI"),
+        Course(id: 10, topicName: "iOS"),
+        Course(id: 11, topicName: "Android")
         ]).eraseToEffect()
     },
     login: @escaping (_ request: LoginRequest) -> Effect<LoginResponse, ApiError> = { _ in
@@ -167,6 +177,7 @@ extension TrainingApiClient {
     .init(getUpcomingCourses: getUpcomingCourses,
           getMyRegisteredCourses: getMyRegisteredCourses,
           getMyAttendedCourses: getMyAttendedCourses,
+          getMyDeliveredCourses: getMyDeliveredCourses,
           login: login)
   }
 }
@@ -176,6 +187,7 @@ extension TrainingApiClient {
     getUpcomingCourses: { recentCourses() },
     getMyRegisteredCourses: myRegisteredCourses,
     getMyAttendedCourses: myAttendedCourses,
+    getMyDeliveredCourses: myDeliveredCourses,
     login: myLogin
   )
 }
@@ -210,6 +222,20 @@ private func myRegisteredCourses(emid: String = "0") -> Effect<[Course], Trainin
 
 private func myAttendedCourses(emid: String = "0") -> Effect<[Course], TrainingApiClient.ApiError> {
   let url = URL(string: "\(Training_Base)/course/myAttended/\(emid)")!
+
+  return URLSession.shared.dataTaskPublisher(for: url)
+    .map { data, _ in data }
+    .decode(type: Courses.self, decoder: jsonDecoder)
+    .map { $0.courses }
+    .mapError { err in
+      print(err)
+      return .init()
+  }
+    .eraseToEffect()
+}
+
+private func myDeliveredCourses(emid: String = "0") -> Effect<[Course], TrainingApiClient.ApiError> {
+  let url = URL(string: "\(Training_Base)/course/myDelivered/\(emid)")!
 
   return URLSession.shared.dataTaskPublisher(for: url)
     .map { data, _ in data }

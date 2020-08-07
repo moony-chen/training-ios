@@ -11,6 +11,7 @@ import ComposableArchitecture
 import UpcomingCourses
 import MyRegistered
 import MyAttended
+import MyDelivered
 import TrainingApiClient
 import Common
 import Login
@@ -20,6 +21,7 @@ struct AppState: Equatable {
   var upcomingCourses: UpcomingCoursesState = UpcomingCoursesState()
   var myRegisteredCourses: MyRegisteredCoursesState = MyRegisteredCoursesState()
   var myAttendedCourses: MyAttendedCoursesState = MyAttendedCoursesState()
+  var myDeliveredCourses: MyDeliveredCoursesState = MyDeliveredCoursesState()
   var tab: Tab = .upcoming
   var loginState: LoginState = LoginState()
   
@@ -32,12 +34,14 @@ enum Tab: Int, Equatable {
   case upcoming
   case myRegistered
   case myAttended
+  case myDelivered
 }
 
 enum AppAction {
   case upcomingCourses(UpcomingCoursesAction)
   case myRegisteredCourses(MyRegisteredCoursesAction)
   case myAttendedCourses(MyAttendedCoursesAction)
+  case myDeliveredCourses(MyDeliveredCoursesAction)
   case tabChanged(Tab)
   case dismissLogin
   case login(LoginAction)
@@ -68,6 +72,12 @@ let appReducer : Reducer<AppState, AppAction, AppEnv> = Reducer.combine(
       action: /AppAction.myAttendedCourses,
       environment: { MyAttendedCoursesEnv(api: $0.api, mainQueue: $0.mainQueue) }
   ),
+  myDeliveredCoursesReducer.debug()
+    .pullback(
+      state: \.myDeliveredCourses,
+      action: /AppAction.myDeliveredCourses,
+      environment: { MyDeliveredCoursesEnv(api: $0.api, mainQueue: $0.mainQueue) }
+  ),
   loginReducer.debug()
     .pullback(
       state: \.loginState,
@@ -82,11 +92,13 @@ let appReducer : Reducer<AppState, AppAction, AppEnv> = Reducer.combine(
     switch action {
     case .upcomingCourses(_),
          .myRegisteredCourses(_),
-         .myAttendedCourses(_):
+         .myAttendedCourses(_),
+         .myDeliveredCourses(_):
       return .none
     case .login(.loginSuccess(_, let user)):
       state.myRegisteredCourses.emid = "\(user.id)"
       state.myAttendedCourses.emid = "\(user.id)"
+      state.myDeliveredCourses.emid = "\(user.id)"
       return .none
     case .login(_):
       return .none
@@ -114,6 +126,7 @@ struct ContentView: View {
             Text("Upcoming").tag(Tab.upcoming)
             Text("Registered").tag(Tab.myRegistered)
             Text("Attended").tag(Tab.myAttended)
+            Text("Delivered").tag(Tab.myDelivered)
           }.pickerStyle(SegmentedPickerStyle())
           
           self.courseView(tab: viewStore.tab)
@@ -155,7 +168,12 @@ struct ContentView: View {
           state: { $0.myAttendedCourses },
           action: AppAction.myAttendedCourses)
       ))
-      
+    case .myDelivered:
+      return AnyView(MyDeliveredCoursesView(
+        store: self.store.scope(
+          state: { $0.myDeliveredCourses },
+          action: AppAction.myDeliveredCourses)
+      ))
     }
   }
 }

@@ -10,6 +10,7 @@ import SwiftUI
 import ComposableArchitecture
 import UpcomingCourses
 import MyRegistered
+import MyAttended
 import TrainingApiClient
 import Common
 import Login
@@ -18,6 +19,7 @@ import CasAuth
 struct AppState: Equatable {
   var upcomingCourses: UpcomingCoursesState = UpcomingCoursesState()
   var myRegisteredCourses: MyRegisteredCoursesState = MyRegisteredCoursesState()
+  var myAttendedCourses: MyAttendedCoursesState = MyAttendedCoursesState()
   var tab: Tab = .upcoming
   var loginState: LoginState = LoginState()
   
@@ -29,11 +31,13 @@ struct AppState: Equatable {
 enum Tab: Int, Equatable {
   case upcoming
   case myRegistered
+  case myAttended
 }
 
 enum AppAction {
   case upcomingCourses(UpcomingCoursesAction)
   case myRegisteredCourses(MyRegisteredCoursesAction)
+  case myAttendedCourses(MyAttendedCoursesAction)
   case tabChanged(Tab)
   case dismissLogin
   case login(LoginAction)
@@ -58,6 +62,12 @@ let appReducer : Reducer<AppState, AppAction, AppEnv> = Reducer.combine(
       action: /AppAction.myRegisteredCourses,
       environment: { MyRegisteredCoursesEnv(api: $0.api, mainQueue: $0.mainQueue) }
   ),
+  myAttendedCoursesReducer.debug()
+    .pullback(
+      state: \.myAttendedCourses,
+      action: /AppAction.myAttendedCourses,
+      environment: { MyAttendedCoursesEnv(api: $0.api, mainQueue: $0.mainQueue) }
+  ),
   loginReducer.debug()
     .pullback(
       state: \.loginState,
@@ -66,16 +76,17 @@ let appReducer : Reducer<AppState, AppAction, AppEnv> = Reducer.combine(
                               mainQueue: env.mainQueue,
                               casAuth: { u, p in env.casAuth.getServiceTicket(u, p, .training).map { (g, s) in s}.eraseToEffect()  }) }
       )
-)
-    .combined(with: Reducer<AppState, AppAction, AppEnv> {
+  )
+  .combined(with: Reducer<AppState, AppAction, AppEnv> {
     state, action, env in
     switch action {
-    case .upcomingCourses(_):
-      return .none
-    case .myRegisteredCourses(_):
+    case .upcomingCourses(_),
+         .myRegisteredCourses(_),
+         .myAttendedCourses(_):
       return .none
     case .login(.loginSuccess(_, let user)):
       state.myRegisteredCourses.emid = "\(user.id)"
+      state.myAttendedCourses.emid = "\(user.id)"
       return .none
     case .login(_):
       return .none
@@ -102,6 +113,7 @@ struct ContentView: View {
           ), label: Text("")) {
             Text("Upcoming").tag(Tab.upcoming)
             Text("Registered").tag(Tab.myRegistered)
+            Text("Attended").tag(Tab.myAttended)
           }.pickerStyle(SegmentedPickerStyle())
           
           self.courseView(tab: viewStore.tab)
@@ -137,7 +149,12 @@ struct ContentView: View {
           state: { $0.myRegisteredCourses },
           action: AppAction.myRegisteredCourses)
       ))
-      
+    case .myAttended:
+      return AnyView(MyAttendedCoursesView(
+        store: self.store.scope(
+          state: { $0.myAttendedCourses },
+          action: AppAction.myAttendedCourses)
+      ))
       
     }
   }
